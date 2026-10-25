@@ -115,14 +115,7 @@ app.get("/api/products", async (req, res) => {
     const products = sortProducts(result.products.map((product) => analyzeProduct(product)), sort);
     if (quickMark) {
       products.forEach((p) => {
-        if (!p.quickDelivery) {
-          p.quickDelivery = true;
-          p.quickSource = `Warehouse stock in ${effectiveCountry} — ships fast to ${deliverTo || effectiveCountry}.`;
-        }
-      });
-    } else if (quick && effectiveCountry && String(effectiveCountry).toUpperCase() === "CN") {
-      products.forEach((p) => {
-        p.quickSource = "China warehouse stock — standard (not local) delivery timing.";
+        if (!p.quickDelivery) p.quickDelivery = true;
       });
     }
     recordSnapshots(products.map((p) => ({ id: p.id, stock: p.stock, listedNum: p.listedNum })));

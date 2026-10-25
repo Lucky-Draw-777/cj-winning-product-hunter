@@ -223,7 +223,7 @@ function stockByCountry(raw) {
   variants.forEach((v) => {
     const invs = Array.isArray(v?.inventories) ? v.inventories : [];
     invs.forEach((inv) => {
-      const code = inv?.countryCode || " ?";
+      const code = inv?.countryCode || "?";
       map[code] = (map[code] || 0) + (Number(inv?.totalInventory) || 0);
     });
   });

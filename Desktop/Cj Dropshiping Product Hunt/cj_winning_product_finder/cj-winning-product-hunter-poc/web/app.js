@@ -1101,10 +1101,11 @@ async function loadSettingsMeta() {
     const data = await (await fetch("/api/settings")).json();
     cjKeyMeta.classList.remove("is-warn");
     cjKeyMeta.textContent = !data.cjKeySet
-      ? (cjKeyMeta.classList.add("is-warn"), "No API key yet — paste your CJdropshipping API Key below.")
+      ? "No API key yet — paste your CJdropshipping API Key below."
       : data.cjKeySource === "settings"
         ? `Using saved key (Settings): ${data.cjKeyMasked}`
         : `Using key from .env: ${data.cjKeyMasked}`;
+    if (!data.cjKeySet) cjKeyMeta.classList.add("is-warn");
   } catch {
     cjKeyMeta.classList.add("is-warn");
     cjKeyMeta.textContent = "Could not reach the local backend to read settings.";
